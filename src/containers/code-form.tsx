@@ -2,12 +2,14 @@ import { FormEvent, useState } from 'react'
 
 import CodeStore from '../store/code-store'
 import { Code } from '../types/code.type'
+import { useNavigate } from 'react-router-dom'
 const INITIAL_STATE: Code = {
     title: '',
     logoUrl: '',
 }
 const CodeForm = () => {
     const [form, setForm] = useState(INITIAL_STATE)
+    const navigate = useNavigate()
 
     const handleChange = (event: FormEvent<HTMLInputElement>) => {
         const { currentTarget } = event
@@ -19,13 +21,15 @@ const CodeForm = () => {
         if (form.title && form.logoUrl) {
             CodeStore.add(form)
             setForm(INITIAL_STATE)
+            navigate('/')
         } else {
             alert('Title or logo url is empty')
         }
     }
     return (
-        <div className="flex flex-wrap justify-between items-center lg:flex-nowrap">
-            <div className="w-full lg:w-1/3 mb-4 lg:mb-0 lg:pr-4">
+        <div className="w-full flex flex-wrap justify-between items-center flex-col">
+            <h2 className="mb-4">Create a new code</h2>
+            <div className="w-full mb-4">
                 <input
                     onChange={handleChange}
                     value={form['title']}
@@ -34,7 +38,7 @@ const CodeForm = () => {
                     placeholder={'Title'}
                 />
             </div>
-            <div className="w-full lg:w-1/3 mb-4 lg:mb-0 lg:px-2">
+            <div className="w-full mb-4 ">
                 <input
                     onChange={handleChange}
                     value={form['logoUrl']}
@@ -43,7 +47,7 @@ const CodeForm = () => {
                     placeholder={'https://example.png'}
                 />
             </div>
-            <div className="w-full lg:w-auto">
+            <div className="w-full">
                 <button
                     onClick={handleSubmit}
                     type="submit"
