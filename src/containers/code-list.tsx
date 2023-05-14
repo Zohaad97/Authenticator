@@ -12,6 +12,7 @@ const CodeList = observer(() => {
         <ul className="list-disc w-full">
             {list.map((item, index) => (
                 <CodeItem
+                    key={`${index}`}
                     id={index}
                     onCodeExpired={onCodeExpired}
                     code={item.code || 0}
