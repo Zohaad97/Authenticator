@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Authenticator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Authenticator app using react + tailwind + mobx
 
 ## Available Scripts
 
