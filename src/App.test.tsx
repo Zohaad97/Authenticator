@@ -4,6 +4,13 @@ import { fireEvent, render } from '@testing-library/react'
 import CodeItem from './components/code-item'
 import CodeForm from './containers/code-form'
 
+const mockedUsedNavigate = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+    ...(jest.requireActual('react-router-dom') as any),
+    useNavigate: () => mockedUsedNavigate,
+}))
+
 describe('CodeItem', () => {
     const defaultProps = {
         logo: 'logo-url',
@@ -63,6 +70,7 @@ describe('CodeForm', () => {
         submitButton.onclick = mockFn
         fireEvent.click(submitButton)
         expect(mockFn).toBeCalledTimes(1)
+        expect(mockedUsedNavigate).toBeCalledTimes(1)
     })
 
     test('shows alert when title or logo url is empty', async () => {
