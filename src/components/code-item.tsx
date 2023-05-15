@@ -1,36 +1,24 @@
-import React, { FC, useEffect } from 'react'
+import { FC } from 'react'
 import ProgressBar from './progress-bar'
-import useTimer from '../hooks/use-progress'
+import { Code } from '../types/code.type'
 
-type Props = {
-    title: string
-    code: number
-    logo: string
-    id: number
-    onCodeExpired: (id: number) => void
-}
+export const EXPIRY_IN_SECONDS = 30
 
-const EXPIRY_IN_SECONDS = 30
-
-const CodeItem: FC<Props> = ({ logo, title, code, onCodeExpired, id }) => {
-    const { progress, reset } = useTimer(EXPIRY_IN_SECONDS)
-
+const CodeItem: FC<Code> = ({ logoUrl, title, code = 0, progress = 0 }) => {
     let codeSting = code.toString()
     codeSting = `${codeSting.substring(
         0,
         codeSting.length / 2
     )} ${codeSting.substring(codeSting.length / 2, codeSting.length)}`
-    useEffect(() => {
-        if (progress === 0) {
-            onCodeExpired(id)
-            reset()
-        }
-    }, [onCodeExpired, progress, reset, id])
 
     return (
         <div className="my-2 flex items-center py-4 border-b border-gray-300 rounded-lg shadow-md bg-white">
             <div className="ml-4">
-                <img src={logo} alt="Logo" className="w-12 h-12 rounded-full" />
+                <img
+                    src={logoUrl}
+                    alt="Logo"
+                    className="w-12 h-12 rounded-full"
+                />
             </div>
             <div className="flex-1 px-2">
                 <p className="text-black-300">{title}</p>

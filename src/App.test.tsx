@@ -13,10 +13,12 @@ jest.mock('react-router-dom', () => ({
 
 describe('CodeItem', () => {
     const defaultProps = {
-        logo: 'logo-url',
+        logoUrl: 'logo-url',
         title: 'Code Item',
         code: 123456,
         id: 1,
+        progress: 20,
+        onProgressUpdate: jest.fn(),
         onCodeExpired: jest.fn(),
     }
 
